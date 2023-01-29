@@ -1,10 +1,9 @@
-from flask import Flask, redirect, render_template, request, url_for, jsonify
+from flask import Flask, redirect, render_template, request, url_for, jsonify, Response
 import urllib.request
 import json
 import gtts
-from playsound import playsound
-import time
 import random
+from io import BytesIO
 
 app = Flask(__name__)
 
@@ -32,7 +31,7 @@ def index():
         "de": dictionary_data[i][2],
         "zh-cn": dictionary_data[i][3],
         "pinyin": dictionary_data[i][4],
-        "ph-tl": dictionary_data[i][5],
+        "ph-tl": dictionary_data[i][5]
         }
     return render_template("home.html", random=random_item, masonry = False)
 
@@ -47,40 +46,16 @@ def search_item():
         results = [sublist for sublist in dictionary_datac for item in sublist if keyword in item]
         return render_template("home.html",results=results,keyword=keyword, masonry=True)
 
-# Route for playing the phrase in the given language
-@app.route("/<lang>/<input>")
-def play(input,lang):
-    tts = gtts.gTTS(input, lang=lang)
-    tts.save("demo.mp3")
-    playsound("demo.mp3")
-    return redirect(request.referrer)
-
-# Route for playing all audio with one click
-@app.route("/play", methods=["GET"])
-def play_quad():
-    en = request.args.get('en')
-    de = request.args.get('de')
-    zh = request.args.get('zh')
-    tl = request.args.get('tl')
-    input_en = gtts.gTTS(en, lang='en')
-    input_en.save("input_en.mp3")
-    input_de = gtts.gTTS(de, lang='de')
-    input_de.save("input_de.mp3")
-    input_zh = gtts.gTTS(zh, lang='zh')
-    input_zh.save("input_zh.mp3")
-    input_tl = gtts.gTTS(tl, lang='tl')
-    input_tl.save("input_tl.mp3")
-    playsound("input_en.mp3")
-    time.sleep(0.5)
-    playsound("input_de.mp3")
-    time.sleep(0.5)
-    playsound("input_zh.mp3")
-    time.sleep(0.5)
-    playsound("input_tl.mp3")
-    return redirect(request.referrer)
+# Generating speech URL for the audio source
+@app.route("/speech/<lang>/<text>")
+def generate_speech_url(lang,text):
+    tts = gtts.gTTS(text=text, lang=lang)
+    fp = BytesIO()
+    tts.write_to_fp(fp)
+    fp.seek(0)
+    return Response(fp.read(), content_type="audio/mpeg")
 
 # API Routes
-
 @app.route("/api/json/")
 def get_api_json_all():
     return jsonify(dictionary_data)
