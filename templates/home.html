@@ -12,45 +12,21 @@
         <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 0%; top: 0px;">
             <div class="card">
                 <div class="card-body">
+                    <p><small>This is word is used for ‘<i>{{ result[0] }}</i>‘</small></p>
 
-                    <p class="display-6">
-                        <a href="{{ url_for('play', input=result[1], lang='en' ) }}" class="display-link">
-                            {{ result[1] | capitalize }}
-                            <svg width="30" height="30">
-                                <use xlink:href="#playsound" />
-                            </svg>
-                        </a>
-                    </p>
-                    <p style="line-height:3em">
-                        <a href="{{ url_for('play', input=result[2], lang='de' ) }}" class="btn btn-purple-light">
-                            {{ result[2] | capitalize }}
-                            <svg width="20" height="20">
-                                <use xlink:href="#playsound" />
-                            </svg>
-                        </a>
-                        <a href="{{ url_for('play', input=result[3], lang='zh' ) }}" class="btn btn-warning">
-                            {{ result[3] | capitalize }}
-                            <svg width="20" height="20">
-                                <use xlink:href="#playsound" />
-                            </svg>
-                            {{ result[4] }}
-                        </a>
-                        <a href="{{ url_for('play', input=result[5], lang='tl' ) }}" class="btn btn-primary">
-                            {{ result[5] | capitalize }}
-                            <svg width="20" height="20">
-                                <use xlink:href="#playsound" />
-                            </svg>
-                        </a>
-                        <a href="{{ url_for('play_quad', en=result[1], de=result[2], zh=result[4], tl=result[7] ) }}"
-                            class="btn btn-secondary">
-                            Play all
-                            <svg width="20" height="20">
-                                <use xlink:href="#playsound" />
-                            </svg>
-                        </a>
-                    </p>
-                    <p><small>This is word is used for {{ result[0] | capitalize }}</small></p>
-
+                    <p style="font-size: 20pt;">{{ result[1] | capitalize }}</p>
+                    <audio src="{{ url_for('generate_speech_url', lang='en', text=result[1] ) }}" controls="true" class="audio-1"></audio>                            
+                    
+                    <p style="font-size: 20pt; margin-top: 1rem;">{{ result[2] | capitalize }}</p>
+                        <audio src="{{ url_for('generate_speech_url', lang='de', text=result[2] ) }}" controls="true" class="audio-2"></audio>                            
+                    
+                        <p style="font-size: 20pt; margin-top: 1rem;"><span data-bs-toggle="tooltip" data-bs-title="{{ result[4] }}">{{ result[3] }}</span></p>
+                        <audio src="{{ url_for('generate_speech_url', lang='zh', text=result[3] ) }}" controls="true" class="audio-3"></audio>                            
+                    
+                        <p style="font-size: 20pt; margin-top: 1rem;">{{ result[5] | capitalize }}</p>
+                        <audio src="{{ url_for('generate_speech_url', lang='tl', text=result[5] ) }}" controls="true" class="audio-4"></audio>                            
+                 
+                
                 </div>
             </div>
         </div>
@@ -60,7 +36,7 @@
     {% else %}
     <div class="lead mb-5">
         <h2 class="fw-light">No results found for <strong>` {{ keyword }} `</strong>. Try again?</h2>
-        <p>...or contribute to the dictionary!</p>
+        <p>...or <a href="https://forms.gle/Ruxwt2GVXjHUKnKT6" target="_blank" class="display-link">contribute to the dictionary</a>!</p>
     </div>
     {% endif %}
 {% endif %}
@@ -70,44 +46,19 @@
     <div class="row">
         {{ total }} 
         <div class="col-md-12">
-            <p><small>This phrase can be used in the context of ‘<strong>{{ random['type'] | capitalize }}</strong>‘</small></p>
-                <p class="display-3">
-                    <a href="{{ url_for('play', input=random['en'], lang='en' ) }}" class="display-link">
-                        {{ random['en'] | capitalize }} 
-                        <svg width="30" height="30">
-                            <use xlink:href="#playsound" />
-                        </svg>
-                    </a>
-                </p>
-                <p class="fs-large" style="line-height:3em;">
-                    <a href="{{ url_for('play', input=random['de'], lang='de' ) }}" class="btn btn-purple-light">
-                        {{ random['de'] | capitalize }}
-                        <svg width="20" height="20">
-                            <use xlink:href="#playsound" />
-                        </svg>
-                    </a>
-                    <a href="{{ url_for('play', input=random['zh-cn'], lang='zh' ) }}" class="btn btn-warning">
-                        {{ random['zh-cn'] | capitalize }}
-                        <svg width="20" height="20">
-                            <use xlink:href="#playsound" />
-                        </svg>
-                    </a>
-                    <a href="{{ url_for('play', input=random['ph-tl'], lang='tl' ) }}" class="btn btn-primary">
-                        {{ random['ph-tl'] | capitalize }}
-                        <svg width="20" height="20">
-                            <use xlink:href="#playsound" />
-                        </svg>
-                    </a>
-                    <a href="{{ url_for('play_quad', en=random['en'], de=random['de'], zh=random['zh-cn'], tl=random['ph-tl'] ) }}"
-                        class="btn btn-secondary">
-                        Play all
-                        <svg width="20" height="20">
-                            <use xlink:href="#playsound" />
-                        </svg>
-                    </a>
-                </p>
+            <p class="display-6">{{ random['en'] | capitalize }}
+                <audio src="{{ url_for('generate_speech_url', lang='en', text=random['en'] ) }}" controls="true" class="audio-1"></audio>                            
+            </p>
+            <p class="display-6">{{ random['de'] | capitalize }} 
+                <audio src="{{ url_for('generate_speech_url', lang='de', text=random['de'] ) }}" controls="true" class="audio-2"></audio>
+            </p>
+            <p class="display-6"> <span data-bs-toggle="tooltip" data-bs-title="{{ random['pinyin'] }}">{{ random['zh-cn'] }}</span>
+                <audio src="{{ url_for('generate_speech_url', lang='zh', text=random['zh-cn'] ) }}" controls="true" class="audio-3"></audio>                               
                 
-
+            </p>
+            <p class="display-6">{{ random['ph-tl'] }}
+                <audio src="{{ url_for('generate_speech_url', lang='tl', text=random['ph-tl'] ) }}" controls="true" class="audio-4"></audio>                
+            </p>
         </div>
     </div>
 </div>
@@ -121,7 +72,8 @@
             alert("Enter was just pressed and the input is at least 4 characters long.");
         }
         return false;
-}
+    }
+    
 </script>
 
 {% endblock %}

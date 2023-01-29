@@ -23,3 +23,25 @@ a.display-link:hover {
     --bs-btn-disabled-bg: #cbc3e3;
     --bs-btn-disabled-border-color: #cbc3e3;
 }
+
+audio {
+    max-height: 40px;
+    vertical-align: -0.1em;
+}
+
+audio.audio-1::-webkit-media-controls-panel {
+    background-color: plum;
+    color:white;
+  }
+
+audio.audio-2::-webkit-media-controls-panel {
+    background-color: palevioletred;
+  }
+
+audio.audio-3::-webkit-media-controls-panel {
+    background-color: cornflowerblue;
+  }
+
+audio.audio-4::-webkit-media-controls-panel {
+    background-color: skyblue;
+  }
