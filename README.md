@@ -34,12 +34,63 @@ Currently the app does not have a single page to configure the contents of the d
 
 2. Publish the spreadsheet to the web and get the generated end point `https://spreadsheets.google.com/feeds/cells/<your_google_sheet_code>/<sheet_page_no>/public/full?alt=json`
 
-3. Go to `app.py` and change the url source.
+3. In the `app.py` file, change the url source.
 ```python
 self.dictionary_url = "<your google sheet json url>"
 ```
 
-4. 
+4. In the `app.py` file, Change the key values according to your database.
+```python
+    random_item = {
+        "type": self.dictionary_data[i][0],
+        "en": self.dictionary_data[i][1],
+        "de": self.dictionary_data[i][2],
+        ...
+```
+For example, if you have korean and japanese:
+```python
+    random_item = {
+        "type": self.dictionary_data[i][0],
+        "ko": self.dictionary_data[i][1],
+        "jp": self.dictionary_data[i][2],
+        ...
+```
+This is the same for the variable `result` which you will find in the `get_json_one()` function.
+
+5. Go to templates `templates/home.html` and change the key names according to your database:
+For example:
+```html
+ <p class="display-6">{{ random['en'] | capitalize }}
+    <audio src="{{ url_for('generate_speech_url', lang='en', text=random['en'] ) }}" controls="true" class="audio-1"></audio>                            
+</p>
+```
+into this:
+For example:
+```html
+ <p class="display-6">{{ random['ko'] | capitalize }}
+    <audio src="{{ url_for('generate_speech_url', lang='ko', text=random['ko'] ) }}" controls="true" class="audio-1"></audio>                            
+</p>
+```
+This is the same for the variable `result` which you will find in the same file.
+
+6. (Optional) This template also uses tooltip for pronunciation reference. If your dictionary need it, simply add this snippet into the paragraph element.
+
+```html
+<span data-bs-toggle="tooltip" data-bs-title="{{ result[4] }}">{{ result[3] }}</span>
+```
+7. In the `templates/header.html` file, you will find the linked menu elements. Revise the links according to your application. For example, change the google forms link.
+```html
+<a class="dropdown-item" href="https://forms.gle/Ruxwt2GVXjHUKnKT6" target="_blank">Contribute Words<svg width="16" height="16"><use xlink:href="#google" /></svg></a>
+```
+8. In the `templates/footer.html` file, you will find the copyright and license content.
+
+### Deploy Your App
+1. After all the changes, commit all your changes in your own github repositor.
+2. Create a new Web Service on Render, and give Render permission to access your new repo.
+3. Use the following values during creation:
+* Environment: Python
+*  Build Command: `pip install -r requirements.txt`
+* Start Command: `gunicorn app:app`
 
 ## Resources 
 1. [Flask Documentation](https://flask.palletsprojects.com/en/2.2.x/)
