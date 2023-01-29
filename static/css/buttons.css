@@ -1,0 +1,25 @@
+a.display-link, a.display-link:active {
+    color: #866ecc!important;
+    text-decoration:none;
+}
+a.display-link:hover {
+    color: #926eff!important;
+    text-decoration:none;
+}
+
+.btn-purple-light {
+    --bs-btn-color: #000;
+    --bs-btn-bg: #cbc3e3;
+    --bs-btn-border-color: #cbc3e3;
+    --bs-btn-hover-color: #000;
+    --bs-btn-hover-bg: #baa3ff;
+    --bs-btn-hover-border-color: #baa3ff;
+    --bs-btn-focus-shadow-rgb: 11,172,204;
+    --bs-btn-active-color: #000;
+    --bs-btn-active-bg: #baa3ff;
+    --bs-btn-active-border-color: #baa3ff;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #000;
+    --bs-btn-disabled-bg: #cbc3e3;
+    --bs-btn-disabled-border-color: #cbc3e3;
+}

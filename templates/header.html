@@ -1,0 +1,73 @@
+{% block content %}
+<header class="py-3 mt-5">
+    <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
+        <div class="dropdown">
+            <a
+                class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none dropdown-toggle"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <h1>QuadLingo
+                    <svg width="30" height="30">
+                        <use xlink:href="#translate" />
+                    </svg>
+                </h1>
+            </a>
+            <ul class="dropdown-menu text-small shadow">
+            <li><a href="{{ url_for('index') }}" class="dropdown-item">
+                    Get Random Word
+                </a>
+            </li>
+            <hr class="dropdown-divider">
+                <li><a href="{{ url_for('get_api_json_all') }}" class="dropdown-item">
+                    Get JSON API
+                </a>
+            </li>
+            <hr class="dropdown-divider">
+
+                <li><a class="dropdown-item" href="#">
+                        Contribute Words
+                        <svg width="16" height="16">
+                            <use xlink:href="#google" />
+                        </svg>
+
+
+                    </a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item"
+                        href="https://docs.google.com/spreadsheets/d/1b-ri2DlWLIhqB-E8xUCqnh9fsxJJ5J-KGV52rJ250Dk/edit?usp=sharing"
+                        target="_blank">
+
+                        Report Errors
+                        <svg width="16" height="16">
+                            <use xlink:href="#comment" />
+                        </svg>
+                    </a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+
+
+
+                <li><a class="dropdown-item" href="https://github.com/kayesokua/flask-dictionary">
+
+                        View Repo
+                        <svg width="16" height="16">
+                            <use xlink:href="#github" />
+                        </svg>
+
+                    </a></li>
+            </ul>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <form class="w-100 me-3" role="search" action="/search">
+                <input type="text" class="form-control form-control-lg" name="keyword" onkeypress="handle"
+                    placeholder="Enter to Search" value="{{ keyword }}" id="search" minlength="4" required>
+            </form>
+
+        </div>
+    </div>
+</header>
+{% endblock %}
