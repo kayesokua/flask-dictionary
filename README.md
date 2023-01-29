@@ -6,7 +6,7 @@
 View Demo: https://dictionary-data-api.onrender.com
 
 QuadLingo is a user-friendly tool for searching slangs and their meanings in English, Deutsch, Mandarin and Tagalog.
-This app serves as a basic application of the Flask Framework using Google Sheets as its source of information and easy deployment on Render. Google Sheets as a database offers non-developers a simple, accessible, and cost-effective solution for storing and managing non-sensitive data. For a Flask setup that will process sensitive data, [view this project instead](https://github.com/kayesokua/flask-store-dummy).
+This app serves as a basic application of the Flask Framework using Google Sheets as its source of information and easy deployment on Render. Google Sheets as a database offers non-developers a simple, accessible, and cost-effective solution for storing and managing non-sensitive data. It allows you to revise the data items directly using Google sheets. For a Flask setup that will process sensitive data, [view this project instead](https://github.com/kayesokua/flask-store-dummy).
 
 ## Package Requirements
 1. `Flask` provides a simple and flexible way to build web applications. Without Flask, you would have to write low-level code to handle HTTP requests, handle routing, and handle templates, among other things.
