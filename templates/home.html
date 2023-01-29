@@ -44,7 +44,6 @@
 {% if random %}
 <div class="lead mt-5 mb-5">
     <div class="row">
-        {{ total }} 
         <div class="col-md-12">
             <p class="display-6">{{ random['en'] | capitalize }}
                 <audio src="{{ url_for('generate_speech_url', lang='en', text=random['en'] ) }}" controls="true" class="audio-1"></audio>                            
